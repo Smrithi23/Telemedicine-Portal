@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <video id="localVideo" autoplay playsinline controls="false"/>
+    <script>
+        async function playVideoFromCamera() {
+            try {
+                const constraints = {'video': true, 'audio': false};
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                const videoElement = document.querySelector('video#localVideo');
+                videoElement.className = "grayscale_filter";
+                videoElement.srcObject = stream;
+            } catch(error) {
+                console.error('Error opening video camera.', error);
+            }                                                                                                          
+        }
+        try {
+            playVideoFromCamera();
+            console.log('Success!! Got mediastream');
+        } catch(error) {
+            console.error('Error accessing media devices.', error);
+        }
+    </script>
+</body>
+</html>
